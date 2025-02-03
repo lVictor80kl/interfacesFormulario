@@ -15,3 +15,78 @@ Content-Type: application/json
     "email": "victor@gmail.com",
     "password": "12345"
 }
+
+###Crear formulario
+POST http://localhost:3000/forms/createform
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ2aWN0b3JAZ21haWwuY29tIiwiaWF0IjoxNzM4NjIyMjcyLCJleHAiOjE3Mzg2MjU4NzJ9.4Ix-G2RfzzqQk3g9YatdXtfLx_RqGPGTjsut4kA8Y2A
+Content-Type: application/json
+
+{
+    "name": "Victor",
+    "lastname": "Acuna",
+    "CI": "123456789",
+    "phone": "123456789",
+    "email": "victor@gmail.com",
+    "country": "España",
+    "city": "Madrid",
+    "state": "Madrid",
+    "laboralExperiences": [
+        "Experiencia laboral 1",
+        "Experiencia laboral 2"
+    ],
+    "languages": [
+        "Español",
+        "Inglés"
+    ],
+    "academyFormations": [
+        "Formación académica 1",
+        "Formación académica 2"
+    ],
+    "skills": [
+        "Habilidad técnica 1",
+        "Habilidad técnica 2"
+    ],
+    "softSkills": [
+        "Habilidad blanda 1",
+        "Habilidad blanda 2"
+    ]
+}
+
+###Actualizar formulario
+PATCH http://localhost:3000/forms/updateform/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ2aWN0b3JAZ21haWwuY29tIiwiaWF0IjoxNzM4NjIyMjcyLCJleHAiOjE3Mzg2MjU4NzJ9.4Ix-G2RfzzqQk3g9YatdXtfLx_RqGPGTjsut4kA8Y2A
+Content-Type: application/json
+
+{
+    "name": "Victr",
+    "lastname": "Acuna",
+    "CI": "123456789",
+    "phone": "123456789",
+    "email": "victor@gmail.com",
+    "country": "España",
+    "city": "Madrid",
+    "state": "Madrid",
+    "laboralExperiences": [
+        "Experiencia laboral 1",
+        "Experiencia laboral 2"
+    ],
+    "languages": [
+        "Español",
+        "Inglés"
+    ],
+    "academyFormations": [
+        "Formación académica 1",
+        "Formación académica 2"
+    ],
+    "skills": [
+        "Habilidad técnica 1",
+        "Habilidad técnica 2"
+    ],
+    "softSkills": [
+        "Habilidad blanda 1"
+    ]
+}
+
+###Obtener formulario
+GET http://localhost:3000/forms/getform/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ2aWN0b3JAZ21haWwuY29tIiwiaWF0IjoxNzM4NjIyMjcyLCJleHAiOjE3Mzg2MjU4NzJ9.4Ix-G2RfzzqQk3g9YatdXtfLx_RqGPGTjsut4kA8Y2A
