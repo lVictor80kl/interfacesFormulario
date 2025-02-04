@@ -12,7 +12,7 @@ export const register = async(req:Request, res: Response): Promise<void>=> {
         if(!email) throw new Error("El email es obligatorio")
     
         const hashedPassword = await bcrypt.hash(password,10)
-        const user = await prisma.create(
+        const user = await prisma.user.create(
             {
                 data: {
                     email,
@@ -42,7 +42,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   
     try {
       // Busca el usuario en la base de datos
-      const user = await prisma.findUnique({
+      const user = await prisma.user.findUnique({
         where: { email },
       });
   
