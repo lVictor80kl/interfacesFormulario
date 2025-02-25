@@ -90,3 +90,6 @@ Content-Type: application/json
 ###Obtener formulario
 GET http://localhost:3000/forms/getform/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ2aWN0b3JAZ21haWwuY29tIiwiaWF0IjoxNzM4NjIyMjcyLCJleHAiOjE3Mzg2MjU4NzJ9.4Ix-G2RfzzqQk3g9YatdXtfLx_RqGPGTjsut4kA8Y2A
+
+###Obtener paletas
+GET http://localhost:3000/pallettes/get

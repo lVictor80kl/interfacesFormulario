@@ -64,57 +64,58 @@ export const createPallette = async (req: Request, res: Response): Promise<void>
 
 // Actualizar una paleta existente
 export const updatePallette = async (req: Request, res: Response): Promise<void> => {
-  const palletteId = parseInt(req.params.id); // Obtener el ID de la paleta de los parámetros de la ruta
-  const userId = (req as any).userId; // Obtener el userId del token
-
+  const palletteId = parseInt(req.params.id);
   const { name, colors, typo1, typo2, sizes } = req.body;
 
   try {
-    // Verificar si la paleta existe y pertenece al usuario
-    const existingPallette = await prisma.pallette.findUnique({
-      where: { id: palletteId },
-    });
+      // Verificar si la paleta existe
+      const existingPallette = await prisma.pallette.findUnique({
+          where: { id: palletteId },
+      });
 
-    if (!existingPallette) {
-      res.status(404).json({ message: "Paleta no encontrada" });
-      return;
-    }
+      if (!existingPallette) {
+          res.status(404).json({ 
+              message: "Paleta no encontrada" 
+          });
+          return;
+      }
 
-    if (existingPallette.userId !== userId) {
-      res.status(403).json({ message: "No tienes permiso para actualizar esta paleta" });
-      return;
-    }
+      // Actualizar la paleta
+      const updatedPallette = await prisma.pallette.update({
+          where: { id: palletteId },
+          data: {
+              name: name !== undefined ? name : existingPallette.name,
+              colors: colors !== undefined ? colors : existingPallette.colors,
+              typo1: typo1 !== undefined ? typo1 : existingPallette.typo1,
+              typo2: typo2 !== undefined ? typo2 : existingPallette.typo2,
+              sizes: sizes !== undefined ? sizes : existingPallette.sizes,
+              ...(req.files ? {
+                  typo1File: (req.files as any).typo1File[0].path,
+                  typo2File: (req.files as any).typo2File[0].path
+              } : {})
+          }
+      });
 
-    // Actualizar solo los campos proporcionados en el cuerpo de la solicitud
-    const updatedPallette = await prisma.pallette.update({
-      where: { id: palletteId },
-      data: {
-        name: name !== undefined ? name : existingPallette.name,
-        colors: colors !== undefined ? colors : existingPallette.colors,
-        typo1: typo1 !== undefined ? typo1 : existingPallette.typo1,
-        typo2: typo2 !== undefined ? typo2 : existingPallette.typo2,
-        sizes: sizes !== undefined ? sizes : existingPallette.sizes,
-        typo1File: req.files ? (req.files as any).typo1File[0].path : existingPallette.typo1File,
-        typo2File: req.files ? (req.files as any).typo2File[0].path : existingPallette.typo2File,
-      },
-    });
-
-    // Enviar respuesta con la paleta actualizada
-    res.status(200).json({ message: "Paleta actualizada", pallette: updatedPallette });
+      res.status(200).json({ 
+          message: "Paleta actualizada", 
+          pallette: updatedPallette 
+      });
   } catch (error) {
-    console.error("Error al actualizar la paleta:", error);
-    res.status(500).json({ error: "Hubo un error al actualizar la paleta" });
+      console.error("Error al actualizar la paleta:", error);
+      res.status(500).json({ 
+          error: "Hubo un error al actualizar la paleta" 
+      });
   }
 };
 
 // Obtener una paleta existente
 export const getPallette = async (req: Request, res: Response): Promise<void> => {
-  const palletteId = parseInt(req.params.id); // Obtener el ID de la paleta de los parámetros de la ruta
+  const userId = parseInt(req.params.id); // Obtener el ID de la paleta de los parámetros de la ruta
 
   try {
     // Verificar si la paleta existe
-    const existingPallette = await prisma.pallette.findUnique({
-      where: { id: palletteId },
+    const existingPallette = await prisma.pallette.findMany({
+      where: { userId: userId },
     });
 
     if (!existingPallette) {
@@ -129,3 +130,33 @@ export const getPallette = async (req: Request, res: Response): Promise<void> =>
     res.status(500).json({ error: "Hubo un error al obtener la paleta" });
   }
 };
+
+export const deletePallette = async(req:Request, res: Response): Promise<void>=> {
+  const id = parseInt(req.params.id);
+  try{
+    const existingPallette = await prisma.pallette.findUnique({
+      where: { id: id },
+  });
+
+  if (!existingPallette) {
+      res.status(404).json({ 
+          message: "Paleta no encontrada" 
+      });
+      return;
+  }
+
+  // Eliminar la paleta
+  await prisma.pallette.delete({
+      where: { id: id },
+  });
+
+  res.status(200).json({ 
+      message: "Paleta eliminada exitosamente" 
+  });
+} catch (error) {
+  console.error("Error al eliminar la paleta:", error);
+  res.status(500).json({ 
+      error: "Hubo un error al eliminar la paleta" 
+  });
+}
+}
