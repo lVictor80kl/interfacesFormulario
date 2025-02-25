@@ -7,6 +7,9 @@ export const createForm = async (req: Request, res: Response): Promise<void> => 
     lastname,
     CI,
     phone,
+    website,
+    profesion,
+    profileDescription,
     email,
     country,
     city,
@@ -26,6 +29,9 @@ export const createForm = async (req: Request, res: Response): Promise<void> => 
       !name ||
       !lastname ||
       !CI ||
+      !website ||
+      !profesion ||
+      !profileDescription ||
       !phone ||
       !email ||
       !country ||
@@ -58,6 +64,9 @@ export const createForm = async (req: Request, res: Response): Promise<void> => 
         lastname,
         CI,
         phone,
+        website,
+        profesion,
+        profileDescription,
         email,
         country,
         city,
@@ -88,6 +97,9 @@ export const updateForm = async (req: Request, res: Response): Promise<void> => 
     lastname,
     CI,
     phone,
+    website,
+    profileDescription,
+    profesion,
     email,
     country,
     city,
@@ -122,6 +134,9 @@ export const updateForm = async (req: Request, res: Response): Promise<void> => 
         name: name !== undefined ? name : existingForm.name,
         lastname: lastname !== undefined ? lastname : existingForm.lastname,
         CI: CI !== undefined ? CI : existingForm.CI,
+        profesion: profesion !== undefined ? profesion : existingForm.profesion,
+        profileDescription: profileDescription !== undefined ? profileDescription : existingForm.profileDescription,
+        website: website !== undefined ? website : existingForm.website,
         phone: phone !== undefined ? phone : existingForm.phone,
         email: email !== undefined ? email : existingForm.email,
         country: country !== undefined ? country : existingForm.country,

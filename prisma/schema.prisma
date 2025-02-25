@@ -27,6 +27,9 @@ model Form {
   CI                 String    @unique // Cédula de Identidad (única)
   phone              String
   email              String
+  profileDescription String
+  profesion          String
+  website            String
   country            String
   city               String
   state              String
