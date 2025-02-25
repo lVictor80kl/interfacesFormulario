@@ -18,6 +18,7 @@ model User {
   email String  @unique
   password  String
   forms     Form[]  // Add this line to create the opposite relation field
+  pallettes Pallette[]
 }
 
 model Form {
@@ -40,4 +41,19 @@ model Form {
   softSkills         Json      // Habilidades blandas (arreglo)
   userId             Int       // Clave foránea para la relación con User
   user               User      @relation(fields: [userId], references: [id]) // Relación con User
+}
+
+model Pallette {
+  id        Int      @id @default(autoincrement())
+  name      String
+  colors    Json     // Para almacenar un array de colores
+  sizes     Json
+  typo1     String   // Nombre o identificador de la primera tipografía
+  typo2     String   // Nombre o identificador de la segunda tipografía
+  typo1File String?  // Ruta o URL al archivo de la primera tipografía (opcional)
+  typo2File String?  // Ruta o URL al archivo de la segunda tipografía (opcional)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int   
+  user      User     @relation(fields: [userId], references: [id])
 }
