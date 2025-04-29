@@ -3,6 +3,7 @@ import express from "express"
 import authRoutes from "./routes/authRoutes"
 import formRoutes from "./routes/formRoutes"
 import colorRoutes from "./routes/colorRoutes"
+import mediaRoutes from "./routes/mediaRoutes"
 import cors from "cors"
 import path from 'path';
 
@@ -18,5 +19,6 @@ app.use('/uploads', express.static('uploads'));
 app.use("/auth",authRoutes)
 app.use("/forms",formRoutes)
 app.use('/pallettes',colorRoutes )
+app.use("/media", mediaRoutes)
 
 export default app
