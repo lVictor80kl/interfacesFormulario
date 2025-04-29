@@ -57,3 +57,16 @@ model Pallette {
   userId    Int   
   user      User     @relation(fields: [userId], references: [id])
 }
+
+model Media {
+  id          Int      @id @default(autoincrement())
+  filename    String
+  url         String
+  type        String   // 'image' o 'video'
+  createdAt   DateTime @default(now())
+  // Nuevos campos para videos
+  title       String?
+  description String?
+  subtitlesEs String? // Ruta o nombre del archivo de subtítulos en español
+  subtitlesEn String? // Ruta o nombre del archivo de subtítulos en inglés
+}

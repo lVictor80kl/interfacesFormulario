@@ -93,3 +93,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 
 ###Obtener paletas
 GET http://localhost:3000/pallettes/get
+
+### Subir imagen
+POST http://localhost:3000/media/upload-image
+Content-Type: multipart/form-data
+
+<Selecciona un archivo de imagen>
+
+### Subir video
+POST http://localhost:3000/media/upload-video
+Content-Type: multipart/form-data
+
+<Selecciona un archivo de video>
+
+### Listar todas las imágenes
+GET http://localhost:3000/media/images
+
+### Listar todos los videos
+GET http://localhost:3000/media/videos
+
+### Obtener una imagen específica
+GET http://localhost:3000/media/image/{filename}
+
+### Obtener un video específico
+GET http://localhost:3000/media/video/{filename}
